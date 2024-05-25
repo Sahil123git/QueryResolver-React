@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect } from "react";
 import { useGetUsersQuery } from "../store/api";
 
 const Layout = () => {
-  const { isLoading, isError, isSuccess, data, error } = useGetUsersQuery();
+  const { users, isLoading, isError } = useGetUsersQuery();
+  console.log({ users });
   return <div>Layout</div>;
 };
 
