@@ -1,17 +1,32 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+
 export const queryApi = createApi({
   reducerPath: "QueryResolverApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5009" }),
+  tagTypes: ["messages"],
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "/allUsers",
-      reducer: (state, action) => {
-        // Store the fetched data in the Redux store
-        // state.users = action.payload;
-        console.log({ state, action });
-      },
+      reducerPath: "users",
+    }),
+    getPublicMessage: builder.query({
+      query: () => "/allPublicMessage",
+      reducerPath: "users",
+      providesTags: ["messages"],
+    }),
+    addMessage: builder.mutation({
+      query: (message) => ({
+        url: "/message",
+        method: "POST",
+        body: message,
+      }),
+      invalidatesTags: ["messages"],
     }),
   }),
 });
 
-export const { useGetUsersQuery } = queryApi;
+export const {
+  useGetUsersQuery,
+  useGetPublicMessageQuery,
+  useAddMessageMutation,
+} = queryApi;

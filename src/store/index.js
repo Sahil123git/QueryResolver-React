@@ -1,5 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import { queryApi } from "./api";
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    [queryApi.reducerPath]: queryApi.reducer,
+  },
+  middleware: (getDefaultMiddleWare) =>
+    getDefaultMiddleWare().concat(queryApi.middleware),
 });

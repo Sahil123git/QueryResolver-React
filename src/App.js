@@ -1,11 +1,11 @@
-import { ApiProvider } from "@reduxjs/toolkit/query/react";
-import { queryApi } from "./store/api";
+import { Provider } from "react-redux";
 import Layout from "./layout";
+import { store } from "./store";
 
 const App = () => (
-  <ApiProvider api={queryApi}>
+  <Provider store={store}>
     <Layout />
-  </ApiProvider>
+  </Provider>
 );
 
 export default App;
