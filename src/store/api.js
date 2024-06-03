@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const queryApi = createApi({
-  reducerPath: "QueryResolverApi",
+  reducerPath: "chatApp",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5009" }),
   tagTypes: ["messages"],
   endpoints: (builder) => ({
@@ -11,7 +11,7 @@ export const queryApi = createApi({
     }),
     getPublicMessage: builder.query({
       query: () => "/allPublicMessage",
-      reducerPath: "users",
+      // reducerPath: "users",
       providesTags: ["messages"],
     }),
     addMessage: builder.mutation({

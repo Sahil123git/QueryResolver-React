@@ -1,22 +1,25 @@
-import { Button, Form, Input } from "antd";
+import { Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Choice from "../pages/Choice";
+import Public from "../pages/public";
+import Rooms from "../pages/rooms";
 import { useAddMessageMutation, useGetPublicMessageQuery } from "../store/api";
+import { ChatLayout } from "./ChatLayout";
 
 const Layout = () => {
-  const { data, isLoading, isError } = useGetPublicMessageQuery();
-  const [addMessage] = useAddMessageMutation();
-  console.log({ data });
-  const sendMessage = (values) => {
-    console.log({ values });
-    addMessage(values);
-  };
   return (
     <div>
-      <Form onFinish={sendMessage}>
-        <Form.Item name="message">
-          <Input placeholder="Basic usage" />
-        </Form.Item>
-        <Button htmlType="submit">Send Message</Button>
-      </Form>
+      <BrowserRouter>
+        <Suspense fallback={"Loading..."}>
+          <Routes>
+            <Route path="/" element={<ChatLayout />}>
+              <Route path="public" element={<Public />} />
+              <Route path="rooms" element={<Rooms />} />
+              <Route index element={<Choice />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
 };
